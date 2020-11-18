@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  redis-demo.service:
+    image: redisdemoservice
+    build:
+      context: .
+      dockerfile: Redis-Demo.Service/Dockerfile
+    environment:
+      REDIS_CONN: "redis,port: 6379,password=redis"
+    depends_on:
+      - redis
+    networks:
+      - redis-demo-network
+
+  redis:
+    image: redis
+    command: redis-server --requirepass redis
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-demo-network
+
+networks:
+  redis-demo-network:

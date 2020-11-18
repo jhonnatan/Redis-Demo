@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  redis-demo.service:
+    image: ${DOCKER_REGISTRY-}redisdemoservice
+    build:
+      context: .
+      dockerfile: Redis-Demo.Service/Dockerfile
+    networks:
+      - redis-demo-network
+
+networks:
+  redis-demo-network:
